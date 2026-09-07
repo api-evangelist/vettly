@@ -4,7 +4,7 @@ description: >-
   offers OpenClaw Guardrails for vetting agent skills and authorizing runtime actions.
 url: https://raw.githubusercontent.com/api-evangelist/vettly/refs/heads/main/apis.yml
 created: '2026-09-06'
-modified: '2026-09-06'
+modified: '2026-09-07'
 specificationVersion: '0.21'
 tags:
   - content-moderation
@@ -24,6 +24,7 @@ apis:
       and OpenClaw Guardrails endpoints for agent skill vetting and action authorization.
     humanURL: https://docs.vettly.dev/api/rest.html
     baseURL: https://api.vettly.dev
+    image: https://vettly.dev/vettly-logo.png
     tags:
       - content-moderation
       - trust-and-safety
@@ -48,11 +49,91 @@ apis:
         url: https://docs.vettly.dev/integrations/mcp.html
       - type: LLMsTxt
         url: https://vettly.dev/llms.txt
+      - type: OpenAPI
+        url: openapi/vettly-content-moderation-openapi.json
+      - type: Overlay
+        url: overlays/vettly-content-moderation-overlay.yaml
+      - type: APIReference
+        url: https://api.vettly.dev/docs/ui
+      - type: ErrorCatalog
+        url: errors/vettly-problem-types.yml
+      - type: Webhooks
+        url: asyncapi/vettly-webhooks.yml
+      - type: RateLimits
+        url: rate-limits/vettly-rate-limits.yml
+      - type: MCPServer
+        url: mcp/vettly-mcp.yml
+      - type: ToolCrosswalk
+        url: mcp/vettly-tool-crosswalk.yml
+      - type: AgentSkill
+        url: skills/_index.yml
 maintainers:
   - FN: Next Aura Labs
     url: https://vettly.dev
+    email: support@vettly.dev
+image: https://vettly.dev/vettly-logo.png
 generated:
   by: apis.io/add
   model: claude-opus-4-8
   confidence: 85
   at: '2026-09-06T04:25:48.642Z'
+common:
+- type: Website
+  url: https://vettly.dev
+- type: VulnerabilityDisclosure
+  url: security/vettly-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/vettly-domain-security.yml
+- type: Authentication
+  url: authentication/vettly-authentication.yml
+- type: Security
+  url: security/vettly-vulnerability-disclosure.yml
+- type: Packages
+  url: packages/vettly-packages.yml
+- type: SDKs
+  url: packages/vettly-packages.yml
+- type: WellKnown
+  url: well-known/vettly-well-known.yml
+- type: SecurityTxt
+  url: well-known/vettly-security.txt
+- type: LLMsTxt
+  url: llms/vettly-llms.txt
+- type: Conformance
+  url: conformance/vettly-conformance.yml
+- type: Lifecycle
+  url: lifecycle/vettly-lifecycle.yml
+- type: StatusPage
+  url: https://status.vettly.dev
+- type: ChangeLog
+  url: changelog/vettly-changelog.yml
+- type: Components
+  url: components/vettly-components.yml
+- type: DataModel
+  url: data-model/vettly-data-model.yml
+- type: Sandbox
+  url: sandbox/vettly-sandbox.yml
+- type: Conventions
+  url: conventions/vettly-conventions.yml
+- type: Idempotency
+  url: conventions/vettly-conventions.yml
+- type: Plans
+  url: plans/vettly-plans-pricing.yml
+- type: GettingStarted
+  url: https://docs.vettly.dev/guide/getting-started.html
+- type: Blog
+  url: https://vettly.dev/blog
+- type: Pricing
+  url: https://vettly.dev/#pricing
+- type: SignUp
+  url: https://vettly.dev/sign-up
+- type: Login
+  url: https://vettly.dev/sign-in
+- type: TermsOfService
+  url: https://vettly.dev/terms
+- type: PrivacyPolicy
+  url: https://vettly.dev/privacy
+x-enrichment:
+  date: '2026-09-07'
+  status: enriched
+  artifacts_added: 26
+  pass: local-v3

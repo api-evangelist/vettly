@@ -1,0 +1,56 @@
+name: Vettly Plans and Pricing
+generated: 2026-09-07
+method: searched
+source: https://vettly.dev/#pricing
+note: >-
+  Pricing published on the homepage pricing section (id="pricing") and mirrored in
+  vettly.dev/llms.txt. Decision quotas differ slightly between the two sources for
+  paid tiers' per-modality splits; the homepage states total decisions/month, the
+  llms.txt breaks them out by modality - both recorded. Overage pricing applies to
+  all paid plans.
+plan_count: 3
+plans:
+  - name: Free
+    price: 0
+    currency: USD
+    period: month
+    quota: "15,000 decisions/month (llms.txt: 15,000 text, 1,000 image, 250 video)"
+    features:
+      - Text, images and video
+      - Starter policy templates
+      - Decision IDs and audit trail
+      - 24-hour decision history
+    notes: No credit card required.
+  - name: Starter
+    price: 19
+    currency: USD
+    period: month
+    quota: "100,000 decisions/month (llms.txt: 100,000 text, 10,000 image, 1,000 video)"
+    features:
+      - Everything in Free
+      - 1-year decision history
+      - Custom policy rules
+      - Decision webhooks
+  - name: Growth
+    price: 49
+    currency: USD
+    period: month
+    quota: "300,000 decisions/month (llms.txt: 300,000 text, 30,000 image, 7,500 video)"
+    features:
+      - Everything in Starter
+      - Spam and scam detection
+      - Advanced risk controls
+      - 3-year moderation logs
+overage:
+  applies_to: all paid plans
+  rates:
+    - unit: text decision
+      price: 0.0001
+      currency: USD
+    - unit: image decision
+      price: 0.001
+      currency: USD
+    - unit: video decision
+      price: 0.01
+      currency: USD
+  billing: monthly

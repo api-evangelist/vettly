@@ -1,0 +1,76 @@
+name: Vettly API Conventions
+generated: 2026-09-07
+method: searched
+source: https://docs.vettly.dev/api/rest.html
+note: >-
+  Cross-cutting runtime semantics compiled from the REST reference, SDK reference,
+  error-codes page, and the published OpenAPI at https://api.vettly.dev/docs.
+authentication:
+  style: bearer-api-key
+  header: "Authorization: Bearer vettly_live_... (or vettly_test_...)"
+  see: authentication/vettly-authentication.yml
+idempotency:
+  coverage: partial
+  scope:
+    - "checkContent (POST /v1/check) via requestId field"
+  mechanism: >-
+    Optional requestId body field acts as an idempotency key on content checks:
+    retrying the same request with the same requestId returns the cached decision
+    instead of re-processing (docs.vettly.dev/api/sdk.html). Not documented for
+    policy, webhook, batch, video, or OpenClaw write endpoints.
+  header: none (body field, not an Idempotency-Key header)
+  retention: not-stated
+pagination:
+  style: limit-offset
+  params: [limit, offset]
+  example: "GET /v1/decisions?limit=100&offset=0"
+  response_fields: not-documented
+versioning:
+  scheme: url-prefix
+  current: v1
+error_envelope:
+  shape: '{"error": {"code", "message", "details"}}'
+  format: custom-json (not RFC 9457)
+  see: errors/vettly-problem-types.yml
+rate_limit_signaling:
+  headers: [X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, Retry-After]
+  exhaustion_status: 429
+  see: rate-limits/vettly-rate-limits.yml
+retries:
+  sdk_behavior: >-
+    @vettly/sdk retries on 429 and 5xx with exponential backoff (1s, 2s, 4s; default
+    maxRetries 3) and respects Retry-After headers.
+request_tracing:
+  decision_id: Every check returns a decisionId (dec_*) usable for audit retrieval and replay.
+webhooks:
+  signature_header: x-vettly-signature
+  signature_scheme: HMAC-SHA256 of the raw body with the per-webhook secret (whsec_*)
+  see: asyncapi/vettly-webhooks.yml
+reversibility:
+  summary: >-
+    The write surface is mostly append-only moderation decisions; decisions cannot be
+    deleted via the API but can be re-run and appealed. Guardrail policy changes have
+    an explicit versioned rollback operation.
+  writes:
+    - operation: "PUT /v1/openclaw/guardrails/policy (update guardrail policy)"
+      reversal: "POST /v1/openclaw/guardrails/policy/rollback (roll back to a prior version from GET .../policy/history)"
+      window: not-stated
+      grade: documented
+      docs: https://docs.vettly.dev/api/openclaw-guardrails.html
+    - operation: "POST /v1/check and other moderation decisions"
+      reversal: "Appeals workflow (product feature) and POST /v1/decisions/{decisionId}/replay to re-evaluate under another policy; the original decision remains in the audit trail"
+      window: not-stated
+      grade: documented
+      docs: https://docs.vettly.dev/api/rest.html#replay-decision
+    - operation: "POST /v1/webhooks (register webhook)"
+      reversal: "DELETE /v1/webhooks/{webhookId} or PATCH with enabled: false"
+      window: not-stated
+      grade: documented
+      docs: https://docs.vettly.dev/api/rest.html#delete-webhook
+dry_run_mode:
+  present: true
+  endpoint: POST /v1/check/dry-run
+  see: sandbox/vettly-sandbox.yml
+field_expansion: none-documented
+metadata:
+  support: "Free-form metadata object on checks (userId, ip, userAgent, custom keys), echoed into decisions and webhooks."

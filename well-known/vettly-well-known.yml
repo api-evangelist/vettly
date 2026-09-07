@@ -1,0 +1,82 @@
+name: Vettly Well-Known Documents
+generated: 2026-09-07
+method: probed
+source: https://vettly.dev
+note: >-
+  Probed /.well-known/ on the registrable domain, www, the docs host, and the API host.
+  vettly.dev (and www) serve a real security.txt and a real ai-plugin.json whose api.url
+  points at the live OpenAPI at https://api.vettly.dev/docs. Everything else 404s
+  (docs host returns an HTML 404 page; api host returns JSON {"error":"Not Found"}).
+hosts:
+  - host: vettly.dev
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: vettly-security.txt
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        file: vettly-ai-plugin.json
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: www.vettly.dev
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: vettly-security.txt
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        file: vettly-ai-plugin.json
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: docs.vettly.dev
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: api.vettly.dev
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404

@@ -1,0 +1,37 @@
+# generated: 2026-09-07
+# method: generated
+# source: openapi/vettly-content-moderation-openapi.json
+overlay: 1.0.0
+info:
+  title: Vettly Content Moderation API Overlay
+  version: 1.0.0
+extends: vettly-content-moderation-openapi.json
+actions:
+  - target: $.info
+    description: Add external documentation and support links published by Vettly.
+    update:
+      contact:
+        name: Vettly Support
+        url: https://vettly.dev
+        email: support@vettly.dev
+      termsOfService: https://vettly.dev/terms
+  - target: $
+    description: Point at the human API reference and docs portal.
+    update:
+      externalDocs:
+        description: Vettly REST API reference
+        url: https://docs.vettly.dev/api/rest.html
+  - target: $.paths['/v1/check'].post
+    description: Document the idempotency mechanism the REST docs describe (requestId field acts as an idempotency key; retried requests with the same requestId return the cached decision).
+    update:
+      x-idempotency:
+        field: requestId
+        behavior: cached-result-on-retry
+  - target: $.paths['/v1/check'].post
+    description: Record the rate-limit response headers documented at docs.vettly.dev/api/error-codes.html.
+    update:
+      x-rate-limit-headers:
+        - X-RateLimit-Limit
+        - X-RateLimit-Remaining
+        - X-RateLimit-Reset
+        - Retry-After

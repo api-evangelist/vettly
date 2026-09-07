@@ -1,0 +1,33 @@
+name: Vettly Conformance
+generated: 2026-09-07
+method: derived
+source: https://docs.vettly.dev/api/error-codes.html
+note: >-
+  Derived from the published OpenAPI (https://api.vettly.dev/docs), the REST/error
+  docs, and site compliance claims. Vettly's market (content moderation / trust and
+  safety) has no dominant machine-readable domain standard to declare; no domain
+  standard conformance is asserted. Changelog notes an NCMEC CyberTipline API
+  integration (CSAM reporting obligation) and GDPR-motivated account deletion, both
+  provider-side operational claims rather than contract-declared standards.
+conformance:
+  - id: oauth2
+    conforms: false
+    evidence: "OpenAPI declares only a bearer API-key scheme (BearerAuth, bearerFormat: API Key); no OAuth flows and 404 on /.well-known/oauth-authorization-server."
+  - id: oidc
+    conforms: false
+    evidence: "404 on https://vettly.dev/.well-known/openid-configuration and no OIDC scheme in the OpenAPI."
+  - id: rfc9457
+    conforms: false
+    evidence: "Error envelope is a custom {error: {code, message, details}} JSON shape (docs.vettly.dev/api/error-codes.html), not application/problem+json."
+  - id: pagination
+    conforms: true
+    evidence: "limit/offset pagination documented on GET /v1/decisions (docs.vettly.dev/api/rest.html)."
+  - id: idempotency
+    conforms: true
+    evidence: "requestId idempotency key documented on POST /v1/check; retried requests with the same requestId return the cached decision (docs.vettly.dev/api/sdk.html)."
+  - id: rate-limit-headers
+    conforms: true
+    evidence: "X-RateLimit-Limit / X-RateLimit-Remaining / X-RateLimit-Reset plus Retry-After documented at docs.vettly.dev/api/error-codes.html (legacy X- prefixed, not draft RateLimit-* fields)."
+  - id: security-txt
+    conforms: true
+    evidence: "RFC 9116 security.txt with Contact, Expires, Canonical served at https://vettly.dev/.well-known/security.txt (HTTP 200)."

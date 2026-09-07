@@ -1,0 +1,15 @@
+name: Vettly Agent Skills
+generated: 2026-09-07
+method: generated
+source: openapi/vettly-content-moderation-openapi.json
+note: >-
+  Skills grounded in the operationIds of the published OpenAPI at
+  https://api.vettly.dev/docs (checkContent, dryRunCheck). No provider-published
+  skills or AGENTS.md were found on vettly.dev or docs.vettly.dev.
+skills:
+  - name: vettly-moderate-content
+    file: vettly-moderate-content.md
+    operations: [checkContent]
+  - name: vettly-test-policy-dry-run
+    file: vettly-test-policy-dry-run.md
+    operations: [dryRunCheck]

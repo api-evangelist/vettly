@@ -1,0 +1,9 @@
+# Vettly Security Contact
+# https://vettly.dev
+
+Contact: mailto:security@vettly.dev
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://vettly.dev/.well-known/security.txt
+
+# We take security seriously. Please report any vulnerabilities responsibly.

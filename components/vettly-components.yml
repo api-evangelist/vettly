@@ -1,0 +1,32 @@
+name: Vettly UI Components
+generated: 2026-09-07
+method: searched
+source: https://docs.vettly.dev/components/overview.html
+note: >-
+  First-party embeddable React components with built-in moderation, shipped in the
+  @vettly/react npm package (v0.1.19). Distinct from the plain @vettly/sdk client.
+  Changelog also lists a Bubble.io plugin and a Discord bot as hosted/no-code
+  moderation surfaces.
+loader:
+  package: "@vettly/react"
+  install: npm install @vettly/react
+  styles: "import '@vettly/react/styles.css'"
+families:
+  - family: Moderated Inputs
+    components:
+      - name: ModeratedTextarea
+        description: Real-time text moderation as users type - debounced API calls, color-coded borders, status messages, block unsafe content.
+      - name: ModeratedImageUpload
+        description: Image upload with drag-and-drop, preview, file validation, and automatic moderation.
+      - name: ModeratedVideoUpload
+        description: Video upload with thumbnail preview, frame extraction, and progress tracking.
+  - family: Hooks
+    components:
+      - name: useModeration
+        description: React hook for building custom moderated UI on top of the check API.
+  - family: No-code / platform surfaces
+    components:
+      - name: Bubble.io plugin
+        description: Moderation for Bubble.io apps (announced Nov 2024 changelog).
+      - name: Discord bot
+        description: Server moderation bot with server-level language configuration (announced Nov 2024 changelog).

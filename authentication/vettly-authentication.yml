@@ -1,0 +1,14 @@
+generated: '2026-09-07'
+method: derived
+source: openapi/vettly-content-moderation-openapi.json
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: API Key
+  description: Enter your API key starting with vettly_live_ or vettly_test_
+  sources:
+  - openapi/vettly-content-moderation-openapi.json

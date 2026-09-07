@@ -1,0 +1,77 @@
+name: Vettly MCP Server
+generated: 2026-09-07
+method: searched
+source: https://docs.vettly.dev/integrations/mcp.html
+status: official
+deployment:
+  mode: local-stdio
+  install: "npx -y @vettly/mcp"
+  package: https://www.npmjs.com/package/@vettly/mcp
+  auth: api-key
+  verified: searched
+note: >-
+  First-party MCP server shipped as the npm package @vettly/mcp (v0.1.11, published
+  2026-02-23), run locally over stdio via npx with a VETTLY_API_KEY env var. No hosted
+  remote MCP endpoint is documented or advertised anywhere on vettly.dev or
+  docs.vettly.dev; the docs show only Claude Desktop / Claude Code / Cursor / Zed
+  stdio configuration and a programmatic createVettlyMcpServer() factory. Tool list
+  below is the provider's own documented tool reference.
+tools:
+  - name: moderate_content
+    description: Check text, image, or video against a moderation policy.
+    parameters:
+      - name: content
+        required: true
+        description: The content to moderate.
+      - name: policyId
+        required: true
+        description: Policy ID to use.
+      - name: contentType
+        required: false
+        description: "text, image, or video (default: text)."
+  - name: validate_policy
+    description: Validate policy YAML syntax without saving.
+    parameters:
+      - name: yamlContent
+        required: true
+        description: YAML policy content.
+  - name: list_policies
+    description: List all available moderation policies.
+  - name: get_usage_stats
+    description: Get usage statistics and costs.
+    parameters:
+      - name: days
+        required: false
+        description: "Days to include (1-365, default: 30)."
+  - name: get_recent_decisions
+    description: Review recent moderation decisions.
+    parameters:
+      - name: limit
+        required: false
+        description: "Number of decisions (1-50, default: 10)."
+      - name: flagged
+        required: false
+        description: Filter by flagged status.
+      - name: policyId
+        required: false
+        description: Filter by policy.
+      - name: contentType
+        required: false
+        description: Filter by content type.
+resources:
+  - uri: vettly://policies
+    description: List of all policies.
+  - uri: "vettly://policies/{policyId}"
+    description: Specific policy YAML.
+environment:
+  - name: VETTLY_API_KEY
+    required: true
+    description: Vettly API key.
+  - name: VETTLY_API_URL
+    required: false
+    description: "API URL (default: https://api.vettly.dev)."
+clients:
+  - Claude Desktop
+  - Claude Code
+  - Cursor
+  - Zed

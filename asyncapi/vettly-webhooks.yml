@@ -1,0 +1,41 @@
+name: Vettly Webhooks
+generated: 2026-09-07
+method: searched
+source: https://docs.vettly.dev/api/webhooks.html
+note: >-
+  Vettly documents a full webhook surface but publishes no AsyncAPI document (no
+  /asyncapi.yaml found on any host; none in the docs). This file captures the
+  provider's documented webhook catalog verbatim-in-substance; it is a Webhooks
+  artifact, not an AsyncAPI specification.
+delivery:
+  transport: HTTPS POST (JSON body)
+  signature:
+    header: x-vettly-signature
+    scheme: HMAC-SHA256 of the raw request body using the per-webhook secret (whsec_*)
+  management:
+    - "POST /v1/webhooks (register: url, events[], description)"
+    - "GET /v1/webhooks, GET /v1/webhooks/{webhookId}"
+    - "PATCH /v1/webhooks/{webhookId} (enable/disable, change events)"
+    - "DELETE /v1/webhooks/{webhookId}"
+    - "POST /v1/webhooks/{webhookId}/test (send a test event)"
+    - "GET /v1/webhooks/{webhookId}/deliveries?limit=50 (delivery log)"
+events:
+  - type: decision.created
+    description: Fired when a moderation decision is created (content was checked).
+  - type: decision.flagged
+    description: Fired when content is flagged (at least one category triggered).
+  - type: decision.blocked
+    description: Fired when content is blocked (exceeded block threshold).
+  - type: openclaw.guardrail.blocked
+    description: Fired when an OpenClaw guardrail decision blocks a skill or runtime action.
+  - type: openclaw.guardrail.approval_required
+    description: Fired when an OpenClaw action is not blocked but requires human approval.
+  - type: policy.created
+    description: Policy lifecycle event (documented in the webhooks event list).
+envelope:
+  fields: [type, id, timestamp, data]
+  event_id_prefix: evt_
+uses:
+  - Async batch completion (POST /v1/batch/check/async with webhookUrl)
+  - Async video moderation results (POST /v1/video/check with webhookUrl)
+  - Audit logging, analytics, alerting

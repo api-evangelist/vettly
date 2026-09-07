@@ -1,0 +1,51 @@
+name: Vettly Tool Crosswalk
+generated: 2026-09-07
+method: derived
+source: https://docs.vettly.dev/integrations/mcp.html
+note: >-
+  Binds the five documented @vettly/mcp tools to the REST surface. The published
+  OpenAPI at https://api.vettly.dev/docs declares only four operations (getHealth,
+  getMetrics, checkContent, dryRunCheck); the wider REST surface (policies, decisions,
+  webhooks, batch, OpenClaw Guardrails) is documented in prose at
+  docs.vettly.dev/api/rest.html but absent from the machine-readable spec, so bindings
+  to those endpoints are by-path with no operationId and confidence is set accordingly.
+  Live MCP schema introspection was not possible (local-stdio server only, no hosted
+  endpoint); mapping is by name/semantics from the provider's own tool reference.
+surfaces:
+  openapi: openapi/vettly-content-moderation-openapi.json
+  mcp: "local-stdio only: npx -y @vettly/mcp (no hosted endpoint)"
+  graphql: none
+crosswalk:
+  - tool: moderate_content
+    category: moderation
+    rest:
+      - checkContent
+    binding: "POST /v1/check"
+    confidence: high
+    note: Tool parameters (content, policyId, contentType) match checkContent's requestBody one-to-one.
+  - tool: list_policies
+    category: policies
+    rest: []
+    binding: "GET /v1/policies (documented in REST docs, not in the published OpenAPI)"
+    confidence: medium
+  - tool: get_recent_decisions
+    category: decisions
+    rest: []
+    binding: "GET /v1/decisions?limit=&offset= (documented in REST docs, not in the published OpenAPI)"
+    confidence: medium
+mcp_only:
+  - tool: validate_policy
+    reason: Validates policy YAML client-side/without saving; no public REST validation endpoint is documented.
+  - tool: get_usage_stats
+    reason: Usage/cost statistics endpoint is not documented in the public REST reference.
+rest_only:
+  - getHealth
+  - getMetrics
+  - dryRunCheck
+coverage:
+  tools_total: 5
+  tools_bound_to_operationids: 1
+  tools_bound_by_path: 2
+  tools_unbound: 2
+  operations_total: 4
+  operations_with_tools: 1

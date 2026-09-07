@@ -1,0 +1,118 @@
+name: Vettly Error Catalog
+generated: 2026-09-07
+method: searched
+source: https://docs.vettly.dev/api/error-codes.html
+format: custom-json
+note: >-
+  Vettly documents a consistent custom error envelope, not RFC 9457 problem+json:
+  {"error": {"code": "...", "message": "...", "details": {...}}}. Some older REST doc
+  examples show a flatter {"error", "code", "details"} shape. Catalog below is the
+  provider's own published error-code reference.
+envelope:
+  fields:
+    - name: error.code
+      type: string
+      description: Machine-readable error code.
+    - name: error.message
+      type: string
+      description: Human-readable description.
+    - name: error.details
+      type: object
+      description: Additional context (optional).
+problems:
+  - code: INVALID_API_KEY
+    status: 401
+    title: Invalid API key provided
+    remediation: Check your API key is correct.
+  - code: EXPIRED_API_KEY
+    status: 401
+    title: API key has expired
+    remediation: Generate a new key in the dashboard.
+  - code: MISSING_API_KEY
+    status: 401
+    title: No API key provided
+    remediation: "Add Authorization: Bearer vettly_live_... header."
+  - code: REVOKED_API_KEY
+    status: 401
+    title: API key was revoked
+    remediation: Generate a new key in the dashboard.
+  - code: QUOTA_EXCEEDED
+    status: 402
+    title: Monthly quota exceeded
+    remediation: Upgrade plan or wait for reset.
+  - code: TRIAL_EXPIRED
+    status: 402
+    title: Free trial has ended
+    remediation: Add a payment method.
+  - code: INSUFFICIENT_PERMISSIONS
+    status: 403
+    title: API key lacks required permissions
+    remediation: Use a key with appropriate scopes.
+  - code: POLICY_NOT_ACCESSIBLE
+    status: 403
+    title: Cannot access this policy
+    remediation: Check policy ownership.
+  - code: POLICY_NOT_FOUND
+    status: 404
+    title: Policy does not exist
+    remediation: Check policy ID is correct.
+  - code: DECISION_NOT_FOUND
+    status: 404
+    title: Decision does not exist
+    remediation: Check decision ID is correct.
+  - code: WEBHOOK_NOT_FOUND
+    status: 404
+    title: Webhook does not exist
+    remediation: Check webhook ID is correct.
+  - code: INVALID_CONTENT
+    status: 422
+    title: Content is invalid
+    remediation: Check content format.
+  - code: CONTENT_TOO_LARGE
+    status: 422
+    title: Content exceeds size limit
+    remediation: Reduce content size.
+  - code: INVALID_CONTENT_TYPE
+    status: 422
+    title: Unsupported content type
+    remediation: Use text, image, or video.
+  - code: INVALID_POLICY_ID
+    status: 422
+    title: Policy ID format is invalid
+    remediation: Use a valid policy ID format.
+  - code: INVALID_IMAGE_URL
+    status: 422
+    title: Image URL is not accessible
+    remediation: Check the URL is public.
+  - code: INVALID_BASE64
+    status: 422
+    title: Base64 encoding is invalid
+    remediation: Fix the base64 encoding.
+  - code: MISSING_REQUIRED_FIELD
+    status: 422
+    title: Required field is missing
+    remediation: Add the required field.
+  - code: INVALID_METADATA
+    status: 422
+    title: Metadata format is invalid
+    remediation: Check metadata is valid JSON.
+  - code: RATE_LIMIT_EXCEEDED
+    status: 429
+    title: Too many requests
+    remediation: Wait and retry with backoff; respect Retry-After.
+  - code: BURST_LIMIT_EXCEEDED
+    status: 429
+    title: Burst limit exceeded
+    remediation: Slow down request rate.
+  - code: INTERNAL_ERROR
+    status: 500
+    title: Internal server error
+    remediation: Retry automatically.
+  - code: SERVICE_UNAVAILABLE
+    status: 503
+    title: Service temporarily unavailable
+    remediation: Check https://status.vettly.dev.
+  - code: PROVIDER_ERROR
+    status: 500
+    title: AI provider error
+    remediation: Retry automatically.

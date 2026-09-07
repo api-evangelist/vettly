@@ -1,0 +1,28 @@
+name: Vettly Sandbox and Testing
+generated: 2026-09-07
+method: searched
+source: https://api.vettly.dev/docs
+note: >-
+  Vettly publishes three testing surfaces: test-mode API keys, a dry-run endpoint,
+  and a hosted playground. The OpenAPI security scheme description states keys start
+  with vettly_live_ or vettly_test_ (test-mode key prefix documented in the contract
+  itself). POST /v1/check/dry-run evaluates a policy against caller-supplied
+  mockScores without calling AI providers (also exposed as dryRun() in @vettly/sdk).
+  A hosted playground exists at https://vettly.dev/playground (HTTP 200). No test
+  fixtures, test clocks, or time simulation are documented.
+keys:
+  live_prefix: vettly_live_
+  test_prefix: vettly_test_
+  evidence: "OpenAPI components.securitySchemes.BearerAuth.description (https://api.vettly.dev/docs)"
+dry_run:
+  endpoint: POST /v1/check/dry-run
+  operationId: dryRunCheck
+  description: >-
+    Test a policy without calling AI providers; pass mockScores (category -> score)
+    and receive the allow/warn/flag/block decision the policy would produce.
+  docs: https://docs.vettly.dev/api/rest.html#dry-run
+playground:
+  url: https://vettly.dev/playground
+  status: 200
+test_fixtures: none-published
+test_clocks: none-published

@@ -1,0 +1,38 @@
+name: Vettly Changelog
+generated: 2026-09-07
+method: searched
+source: https://vettly.dev/changelog
+note: >-
+  Dated product changelog published at vettly.dev/changelog, grouped by month.
+  Entries below are the provider's own published highlights (recent window). No
+  semantic-version scheme is used on the changelog itself; the API is versioned by
+  /v1 URL prefix and the published OpenAPI reports version 0.3.0.
+scheme: monthly
+current_api_version: v1 (OpenAPI 0.3.0)
+entries:
+  - version: 2025-01
+    date: "2025-01"
+    breaking:
+      - Perspective API provider removed (sunset 2026).
+    additions:
+      - Unity SDK for game developers with text decisions and editor tooling.
+      - Account deletion in settings for GDPR compliance.
+      - Policy cache hardening for improved reliability.
+      - Error sanitization to prevent internal detail exposure.
+  - version: 2024-12
+    date: "2024-12"
+    breaking: []
+    additions:
+      - Multi-layer caching for 10x faster API responses; decision caching for repeated content.
+      - GPT-4o-mini provider for better decision quality.
+      - Competitor attack and defamation detection; multilingual content analysis.
+      - MIT license for all npm packages; request limits enforcement per plan.
+  - version: 2024-11
+    date: "2024-11"
+    breaking: []
+    additions:
+      - Platform launch - multi-modal decisions (text, images, video), policy engine, dashboard.
+      - NCMEC CyberTipline API integration for CSAM reporting.
+      - Video decisions with OpenAI frame extraction; Hive v3 image analysis upgrade.
+      - Webhook support, audit trails and compliance logging, cost-based quota enforcement.
+      - 3-tier pricing model; Bubble.io plugin; Discord bot.

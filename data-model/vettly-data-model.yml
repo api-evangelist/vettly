@@ -1,0 +1,57 @@
+name: Vettly Data Model
+generated: 2026-09-07
+method: derived
+source: https://docs.vettly.dev/api/rest.html
+note: >-
+  Entity-relationship graph derived from the published OpenAPI request/response
+  schemas and the REST reference. ID prefixes are taken from the provider's own
+  documented examples.
+id_prefixes:
+  - prefix: dec_
+    entity: Decision
+  - prefix: batch_
+    entity: Batch
+  - prefix: wh_
+    entity: Webhook
+  - prefix: evt_
+    entity: Event
+  - prefix: whsec_
+    entity: WebhookSecret
+entities:
+  - name: Policy
+    description: Named moderation policy defined in plain-English YAML; category thresholds drive allow/warn/flag/block actions. Versioned; OpenClaw project guardrail policies keep a version history with rollback.
+  - name: Decision
+    description: Result of a content check - safe/flagged/action, per-category scores vs thresholds, provider, latency, cost; permanent audit-trail record, retrievable, replayable, and appealable.
+  - name: Batch
+    description: Group of items checked together, sync or async with webhook delivery; tracks status and totalItems.
+  - name: Webhook
+    description: Registered HTTPS endpoint subscribed to events, with HMAC secret, enabled flag, and delivery log.
+  - name: Event
+    description: Webhook payload (decision.created / decision.flagged / decision.blocked / openclaw.guardrail.* / policy.*) wrapping decision data.
+  - name: GuardrailDecision
+    description: OpenClaw skill-vetting or runtime action-authorization result - riskScore, categories, reasons, requiresApproval.
+relationships:
+  - from: Decision
+    to: Policy
+    kind: belongs_to
+    via: policyId
+  - from: Batch
+    to: Decision
+    kind: has_many
+    via: items[].decisionId
+  - from: Batch
+    to: Policy
+    kind: belongs_to
+    via: policyId
+  - from: Webhook
+    to: Event
+    kind: has_many
+    via: events[] subscription
+  - from: Event
+    to: Decision
+    kind: belongs_to
+    via: data.decisionId
+  - from: GuardrailDecision
+    to: Policy
+    kind: belongs_to
+    via: projectId (project-level guardrail policy)

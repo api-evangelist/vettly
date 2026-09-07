@@ -1,0 +1,38 @@
+name: Vettly Packages
+generated: 2026-09-07
+method: searched
+source: https://registry.npmjs.org
+note: >-
+  First-party npm packages under the @vettly scope, confirmed against the npm registry
+  metadata endpoint on 2026-09-07 and cross-referenced with docs.vettly.dev (SDK, React
+  components, and MCP integration pages) and vettly.dev/llms.txt. No packages found on
+  PyPI, RubyGems, Packagist, NuGet, Maven Central, crates.io, or pkg.go.dev. Changelog
+  states all npm packages are MIT licensed.
+packages:
+  - name: "@vettly/sdk"
+    registry: npm
+    url: https://www.npmjs.com/package/@vettly/sdk
+    language: TypeScript
+    official: true
+    version: 0.2.8
+    published: "2026-02-13"
+    description: Content moderation SDK for apps. Filtering, reporting, blocking, and audit trail.
+    docs: https://docs.vettly.dev/api/sdk.html
+  - name: "@vettly/react"
+    registry: npm
+    url: https://www.npmjs.com/package/@vettly/react
+    language: TypeScript
+    official: true
+    version: 0.1.19
+    published: "2026-02-13"
+    description: React components for content moderation - ModeratedTextarea, ModeratedImageUpload, ModeratedVideoUpload, useModeration hook.
+    docs: https://docs.vettly.dev/components/overview.html
+  - name: "@vettly/mcp"
+    registry: npm
+    url: https://www.npmjs.com/package/@vettly/mcp
+    language: TypeScript
+    official: true
+    version: 0.1.11
+    published: "2026-02-23"
+    description: MCP server for content moderation with Claude and Cursor.
+    docs: https://docs.vettly.dev/integrations/mcp.html

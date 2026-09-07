@@ -1,0 +1,26 @@
+name: Vettly Lifecycle
+generated: 2026-09-07
+method: searched
+source: https://status.vettly.dev
+note: >-
+  Vettly runs a public status page (status.vettly.dev, Next Aura Labs branded,
+  monitoring api.vettly.dev/health with ~99.9% uptime history) and a dated product
+  changelog at vettly.dev/changelog. API is versioned by URL prefix (/v1). No
+  published deprecation policy, Sunset/Deprecation header usage (RFC 8594), or SLA
+  document was found; the changelog records provider-side retirements (Perspective
+  API provider removed, sunset 2026) but no consumer-facing API deprecation process.
+  The published OpenAPI (v0.3.0) declares no deprecated operations.
+status_page:
+  url: https://status.vettly.dev
+  monitors:
+    - name: Vettly.dev
+      endpoint: https://api.vettly.dev/health
+versioning:
+  scheme: url-prefix
+  current: v1
+  spec_version: 0.3.0
+changelog:
+  url: https://vettly.dev/changelog
+deprecation_policy: none-published
+sla: none-published
+deprecated_operations: []

@@ -1,0 +1,30 @@
+name: Vettly Rate Limits
+generated: 2026-09-07
+method: searched
+source: https://docs.vettly.dev/api/error-codes.html
+note: >-
+  Vettly documents the rate-limit response headers and the 429 behavior, plus a
+  distinct burst limit (BURST_LIMIT_EXCEEDED), but publishes no numeric per-plan
+  request-rate table - doc examples show X-RateLimit-Limit values of 100 and 300
+  without binding them to plans. The changelog notes "request limits enforcement per
+  plan" (Dec 2024), and plan quotas (decisions/month) are recorded in
+  plans/vettly-plans-pricing.yml as monthly quotas, not request rates.
+limit_count: 0
+limits: []
+headers:
+  - name: X-RateLimit-Limit
+    description: Request allowance for the current window.
+  - name: X-RateLimit-Remaining
+    description: Requests remaining in the current window.
+  - name: X-RateLimit-Reset
+    description: Unix timestamp when the window resets.
+  - name: Retry-After
+    description: Seconds to wait before retrying (on 429 responses).
+exhaustion:
+  status: 429
+  error_codes: [RATE_LIMIT_EXCEEDED, BURST_LIMIT_EXCEEDED]
+  body_example: '{"error": "Rate limit exceeded", "retryAfter": 60}'
+quota_exhaustion:
+  status: 402
+  error_codes: [QUOTA_EXCEEDED]
+  description: Monthly plan quota exhaustion is signaled separately from rate limiting.
