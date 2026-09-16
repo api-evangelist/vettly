@@ -1,0 +1,14 @@
+{
+  "repo": "vettly",
+  "feeds": [
+    {
+      "source": "https://docs.vettly.dev/guide/getting-started.html",
+      "feed_url": "https://docs.vettly.dev/guide/getting-started.html",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-09-13T13:00:00Z"
+}
