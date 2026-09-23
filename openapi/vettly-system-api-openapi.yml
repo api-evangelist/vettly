@@ -1,0 +1,128 @@
+openapi: 3.2.0
+info:
+  title: Vettly Content Moderation System API
+  version: 0.3.0
+  description: '# Vettly Content Moderation API
+
+
+    Content moderation API for apps with user-generated content.'
+  contact:
+    name: Vettly Support
+    url: https://vettly.dev
+  license:
+    name: Proprietary
+    url: https://vettly.dev/legal/terms
+servers:
+- url: https://api.vettly.dev
+  description: Production
+- url: http://localhost:3000
+  description: Development
+tags:
+- name: System
+  description: Health checks and monitoring
+paths:
+  /health:
+    get:
+      summary: Health check
+      description: Check API health and verify dependencies (database, providers)
+      operationId: getHealth
+      tags:
+      - System
+      responses:
+        '200':
+          description: System is healthy or degraded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '503':
+          description: System is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+  /metrics:
+    get:
+      summary: Prometheus metrics
+      description: Get Prometheus-formatted metrics for monitoring
+      operationId: getMetrics
+      tags:
+      - System
+      responses:
+        '200':
+          description: Prometheus metrics
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: '# HELP http_requests_total Total number of HTTP requests
+
+                  # TYPE http_requests_total counter
+
+                  http_requests_total{method="GET",route="/health",status="200"} 42'
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - healthy
+          - degraded
+          - unhealthy
+          description: Overall system health status
+        version:
+          type: string
+          description: API version
+          example: 0.3.0
+        timestamp:
+          type: string
+          format: date-time
+          description: Current timestamp
+        providers:
+          type: array
+          items:
+            type: string
+          description: Available moderation providers
+          example:
+          - openai
+          - mock
+          - fallback
+        checks:
+          type: object
+          properties:
+            database:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - pass
+                  - fail
+                message:
+                  type: string
+                latency:
+                  type: number
+            providers:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - pass
+                  - fail
+                message:
+                  type: string
+      required:
+      - status
+      - version
+      - timestamp
+      - providers
+      - checks
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+      description: Enter your API key starting with vettly_live_ or vettly_test_

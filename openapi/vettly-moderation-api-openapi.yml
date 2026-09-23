@@ -1,0 +1,303 @@
+openapi: 3.2.0
+info:
+  title: Vettly Content Moderation API
+  version: 0.3.0
+  description: '# Vettly Content Moderation API
+
+
+    Content moderation API for apps with user-generated content.'
+  contact:
+    name: Vettly Support
+    url: https://vettly.dev
+  license:
+    name: Proprietary
+    url: https://vettly.dev/legal/terms
+servers:
+- url: https://api.vettly.dev
+  description: Production
+- url: http://localhost:3000
+  description: Development
+tags:
+- name: Moderation
+  description: Content moderation endpoints. Use POST /v1/check to moderate user-generated content (text, images, video) and get allow/flag/block decisions.
+paths:
+  /v1/check:
+    post:
+      summary: Check content for moderation
+      description: Send user-generated content (text, image, or video) and get an allow/flag/block decision based on your policy. This is the primary endpoint for content moderation. Returns category scores, a decision action, and a decision ID for audit trail.
+      operationId: checkContent
+      tags:
+      - Moderation
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckRequest'
+            examples:
+              textModeration:
+                summary: Text moderation
+                value:
+                  content: This is a sample text to moderate
+                  policyId: default-policy
+                  contentType: text
+              imageModeration:
+                summary: Image moderation
+                value:
+                  content: https://example.com/image.jpg
+                  policyId: default-policy
+                  contentType: image
+              withIdempotency:
+                summary: With idempotency key
+                value:
+                  content: This is a sample text
+                  policyId: default-policy
+                  requestId: req_unique_123
+                  metadata:
+                    userId: user_123
+                    source: chat
+      responses:
+        '200':
+          description: Moderation decision
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckResponse'
+          headers:
+            X-Request-ID:
+              description: Request tracking ID
+              schema:
+                type: string
+            X-RateLimit-Limit-Minute:
+              description: Rate limit per minute
+              schema:
+                type: integer
+            X-RateLimit-Remaining-Minute:
+              description: Remaining requests this minute
+              schema:
+                type: integer
+        '400':
+          description: Invalid request (validation error)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized (missing or invalid API key)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Policy not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Seconds until rate limit resets
+              schema:
+                type: integer
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/check/dry-run:
+    post:
+      summary: Test policy (dry run)
+      description: Test a moderation policy with mock scores without saving results
+      operationId: dryRunCheck
+      tags:
+      - Moderation
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CheckRequest'
+              - type: object
+                properties:
+                  mockScores:
+                    type: object
+                    description: Mock category scores for testing
+                    additionalProperties:
+                      type: number
+                    example:
+                      hate_speech: 0.9
+                      violence: 0.3
+      responses:
+        '200':
+          description: Dry run result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  dryRun:
+                    type: boolean
+                    example: true
+                  evaluation:
+                    type: object
+                    description: Policy evaluation result
+                  policy:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      version:
+                        type: string
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Policy not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    CheckRequest:
+      type: object
+      description: Request body for content moderation. Send user-generated content (text, image URL, or video URL) and a policy ID to get an allow/flag/block decision.
+      properties:
+        content:
+          type: string
+          description: The user-generated content to moderate. For text, send the raw string. For images, send a URL or base64 data URI. For video, send a URL.
+          minLength: 1
+          maxLength: 100000
+          example: This is a sample text to moderate
+        policyId:
+          type: string
+          description: ID of the moderation policy to evaluate against. Use "default" if you have not created a custom policy.
+          example: default
+        contentType:
+          type: string
+          enum:
+          - text
+          - image
+          - video
+          description: Type of content. Determines which AI models are used for scoring.
+          default: text
+        requestId:
+          type: string
+          description: Idempotency key. If you send the same requestId twice, you get the cached result instead of a duplicate check.
+          example: req_abc123
+        metadata:
+          type: object
+          description: Attach context like userId or source. Stored with the decision for audit purposes.
+          additionalProperties: true
+          example:
+            userId: user_123
+            source: chat
+      required:
+      - content
+      - policyId
+    CheckResponse:
+      type: object
+      description: Moderation decision. Contains the action (allow/flag/block), category scores, and a decision ID for audit trail.
+      properties:
+        decisionId:
+          type: string
+          description: Unique decision ID for audit trail. Use this to look up the decision later or for appeals.
+          example: dec_abc123
+        safe:
+          type: boolean
+          description: true if no category thresholds were exceeded
+        flagged:
+          type: boolean
+          description: true if content needs human review
+        action:
+          type: string
+          enum:
+          - allow
+          - review
+          - block
+          description: 'What to do with this content: allow it, queue for review, or block it'
+        categories:
+          type: array
+          description: Category scores from moderation provider
+          items:
+            type: object
+            properties:
+              category:
+                type: string
+                example: hate_speech
+              score:
+                type: number
+                example: 0.85
+              triggered:
+                type: boolean
+                example: true
+        provider:
+          type: string
+          description: Provider used for moderation
+          example: openai
+        latency:
+          type: number
+          description: Total request latency in milliseconds
+          example: 245
+        cost:
+          type: number
+          description: Estimated cost in USD
+          example: 0.001
+        requestId:
+          type: string
+          description: Your provided requestId (if any)
+          example: req_abc123
+        cached:
+          type: boolean
+          description: Whether this was a cached response (idempotency)
+      required:
+      - decisionId
+      - safe
+      - flagged
+      - action
+      - categories
+      - provider
+      - latency
+      - cost
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+        code:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Additional error details
+      required:
+      - error
+      - code
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+      description: Enter your API key starting with vettly_live_ or vettly_test_
