@@ -216,6 +216,21 @@ components:
       required:
       - content
       - policyId
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+        code:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Additional error details
+      required:
+      - error
+      - code
     CheckResponse:
       type: object
       description: Moderation decision. Contains the action (allow/flag/block), category scores, and a decision ID for audit trail.
@@ -280,21 +295,6 @@ components:
       - provider
       - latency
       - cost
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-        code:
-          type: string
-          description: Machine-readable error code
-        message:
-          type: string
-          description: Additional error details
-      required:
-      - error
-      - code
   securitySchemes:
     BearerAuth:
       type: http
