@@ -180,57 +180,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    CheckRequest:
-      type: object
-      description: Request body for content moderation. Send user-generated content (text, image URL, or video URL) and a policy ID to get an allow/flag/block decision.
-      properties:
-        content:
-          type: string
-          description: The user-generated content to moderate. For text, send the raw string. For images, send a URL or base64 data URI. For video, send a URL.
-          minLength: 1
-          maxLength: 100000
-          example: This is a sample text to moderate
-        policyId:
-          type: string
-          description: ID of the moderation policy to evaluate against. Use "default" if you have not created a custom policy.
-          example: default
-        contentType:
-          type: string
-          enum:
-          - text
-          - image
-          - video
-          description: Type of content. Determines which AI models are used for scoring.
-          default: text
-        requestId:
-          type: string
-          description: Idempotency key. If you send the same requestId twice, you get the cached result instead of a duplicate check.
-          example: req_abc123
-        metadata:
-          type: object
-          description: Attach context like userId or source. Stored with the decision for audit purposes.
-          additionalProperties: true
-          example:
-            userId: user_123
-            source: chat
-      required:
-      - content
-      - policyId
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-        code:
-          type: string
-          description: Machine-readable error code
-        message:
-          type: string
-          description: Additional error details
-      required:
-      - error
-      - code
     CheckResponse:
       type: object
       description: Moderation decision. Contains the action (allow/flag/block), category scores, and a decision ID for audit trail.
@@ -295,6 +244,57 @@ components:
       - provider
       - latency
       - cost
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+        code:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Additional error details
+      required:
+      - error
+      - code
+    CheckRequest:
+      type: object
+      description: Request body for content moderation. Send user-generated content (text, image URL, or video URL) and a policy ID to get an allow/flag/block decision.
+      properties:
+        content:
+          type: string
+          description: The user-generated content to moderate. For text, send the raw string. For images, send a URL or base64 data URI. For video, send a URL.
+          minLength: 1
+          maxLength: 100000
+          example: This is a sample text to moderate
+        policyId:
+          type: string
+          description: ID of the moderation policy to evaluate against. Use "default" if you have not created a custom policy.
+          example: default
+        contentType:
+          type: string
+          enum:
+          - text
+          - image
+          - video
+          description: Type of content. Determines which AI models are used for scoring.
+          default: text
+        requestId:
+          type: string
+          description: Idempotency key. If you send the same requestId twice, you get the cached result instead of a duplicate check.
+          example: req_abc123
+        metadata:
+          type: object
+          description: Attach context like userId or source. Stored with the decision for audit purposes.
+          additionalProperties: true
+          example:
+            userId: user_123
+            source: chat
+      required:
+      - content
+      - policyId
   securitySchemes:
     BearerAuth:
       type: http
