@@ -106,6 +106,8 @@ generated:
   confidence: 85
   at: '2026-09-06T04:25:48.642Z'
 common:
+- type: RateLimits
+  url: rate-limits/vettly-rate-limits.yml
 - type: Overlay
   url: overlays/vettly-content-moderation-overlay.yaml
 - type: MCPServer
