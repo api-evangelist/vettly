@@ -38,6 +38,25 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
+- partner_name: Discord (discord-app-directory)
+  partner: discord
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: discord-app-directory
+  evidence: https://discord.com/discovery/applications/1444018885434278012
+  mirror_of: discord/integrations/discord-integration-edges.yml
+  apps:
+  - Vettly Shield – Moderation
+  listing_count: 1
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Moderation and Tools
+  publisher_verified:
+  - discord-verified-app
 generated: '2026-10-18'
 method: searched
 source:
@@ -56,3 +75,4 @@ checked:
 - https://registry.npmjs.org
 - https://repo1.maven.org/maven2
 - https://rubygems.org/api/v1
+- discord/integrations/discord-integration-edges.yml

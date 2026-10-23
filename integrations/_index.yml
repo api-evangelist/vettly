@@ -43,3 +43,16 @@
     detected: '2026-10-18'
   status: not-a-workflow
   arazzo: null
+- slug: vettly-discord-discord-app-directory
+  label: Discord (discord-app-directory)
+  partner: discord
+  partner_name: Discord (discord-app-directory)
+  category: Moderation and Tools
+  type: marketplace
+  marketplace: discord-app-directory
+  channel: partner-built
+  evidence: https://discord.com/discovery/applications/1444018885434278012
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
