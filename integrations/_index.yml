@@ -56,3 +56,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: vettly-bubble-own
+  label: Bubble (own)
+  partner: bubble
+  partner_name: Bubble (own)
+  category: Api
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://bubble.io/plugin/vettly-moderation-1767373044738x184054625326596100
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null

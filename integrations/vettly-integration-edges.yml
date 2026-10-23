@@ -57,6 +57,23 @@ edges:
   category: Moderation and Tools
   publisher_verified:
   - discord-verified-app
+- partner_name: Bubble (own)
+  partner: bubble
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://bubble.io/plugin/vettly-moderation-1767373044738x184054625326596100
+  mirror_of: bubble/integrations/bubble-integration-edges.yml
+  apps:
+  - Vettly Moderation
+  listing_count: 1
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Api
 generated: '2026-10-18'
 method: searched
 source:
@@ -76,3 +93,4 @@ checked:
 - https://repo1.maven.org/maven2
 - https://rubygems.org/api/v1
 - discord/integrations/discord-integration-edges.yml
+- bubble/integrations/bubble-integration-edges.yml
