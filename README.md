@@ -1,4 +1,4 @@
-# vettly
+# Vettly
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -65,3 +65,124 @@
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
 Developer-first content moderation for text, images, and video with policy versioning, appeals, and audit trails. Also offers OpenClaw Guardrails for vetting agent skills and authorizing runtime actions.
+
+**Areas:** Content Moderation · Trust and Safety · Security · Text Analysis · Image Moderation · video-moderation · UGC · Compliance · agent-guardrails · MCP
+
+## Vettly on APIs.io
+
+Everything profiled for Vettly is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/vettly/](https://apis.io/providers/vettly/)** — or go straight to one of the APIs or properties below.
+
+### APIs (2)
+
+- [Vettly Moderation API](https://apis.io/apis/vettly/vettly-moderation-api/) — Content moderation endpoints. Use POST /v1/check to moderate user-generated content (text, images, video) and get allow/flag/block decisions.
+- [Vettly System API](https://apis.io/apis/vettly/vettly-system-api/) — Health checks and monitoring
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Vettly Webhooks](https://apis.io/asyncapis/vettly/vettly-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [Vettly MCP Server](https://apis.io/servers/vettly/vettly-mcp-server/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Vettly Content Moderation Overlay](https://apis.io/overlays/vettly/vettly-content-moderation-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Vettly Authentication](https://apis.io/security/vettly/vettly-authentication/)
+- [Vettly Domain Security](https://apis.io/security/vettly/vettly-domain-security/)
+- [Vettly Vulnerability Disclosure](https://apis.io/security/vettly/vettly-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Vettly Plans Pricing](https://apis.io/plans/vettly/vettly-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Vettly Rate Limits](https://apis.io/rate-limits/vettly/vettly-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://vettly.dev)
+- [Getting started](https://docs.vettly.dev/guide/getting-started.html)
+- [Pricing](https://vettly.dev/#pricing)
+- [Sign up](https://vettly.dev/sign-up)
+- [Blog](https://vettly.dev/blog)
+- [Terms of service](https://vettly.dev/terms)
+- [Privacy policy](https://vettly.dev/privacy)
+- [Status](https://status.vettly.dev)
+
+## API Evangelist rating
+
+**Kin Score 53.3** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.7 |
+| Contract quality | 55.5 |
+| Contract governance | 4.5 |
+| Operational transparency | 42.1 |
+| Developer ergonomics | 58.9 |
+| Access clarity | 64.5 |
+
+**Agent readiness 44.4** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | verified |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 30.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/vettly/](https://apis.io/providers/vettly/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Vettly: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/vettly/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
